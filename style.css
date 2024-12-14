@@ -84,3 +84,27 @@ body {
     margin-bottom: 15px;
     text-align: center;
 }
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.dashboard-icon:hover {
+    animation: pulse 1s infinite;
+}
+
+@media (max-width: 1200px) {
+    .dashboard.active {
+        right: 50%;
+        transform: translate(50%, -50%);
+        width: 90vw;
+        height: 90vh;
+    }
+
+    .charts-container {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+}
