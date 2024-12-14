@@ -141,3 +141,46 @@ function initializeCharts() {
             }
         }
     });
+
+    // Bubble Chart
+    const bubbleCtx = document.getElementById('bubbleChart').getContext('2d');
+    new Chart(bubbleCtx, {
+        type: 'bubble',
+        data: {
+            datasets: [{
+                label: 'Investment Returns',
+                data: Array.from({length: 15}, () => ({
+                    x: Math.random() * 100,
+                    y: Math.random() * 100,
+                    r: Math.random() * 15
+                })),
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: { color: '#fff' }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: { color: '#fff' }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#fff'
+                    }
+                }
+            }
+        }
+    });
+}
