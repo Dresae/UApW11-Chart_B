@@ -91,7 +91,6 @@ body {
     text-align: center;
 }
 
-
 .chart-wrapper {
     flex: 1;
     position: relative;
@@ -107,7 +106,6 @@ canvas {
     height: 100% !important;
 }
 
-
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -117,7 +115,6 @@ canvas {
 .dashboard-icon:hover {
     animation: pulse 1s infinite;
 }
-
 
 @media (max-width: 768px) {
     .dashboard.active {
@@ -142,4 +139,23 @@ canvas {
     .dashboard {
         padding: 20px;
     }
+}
+
+/* Scrollbar Styling */
+.charts-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.charts-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.charts-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.charts-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
