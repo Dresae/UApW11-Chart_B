@@ -4,8 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    
+    <div class="dashboard-icon">
+        <i class="fas fa-chart-line"></i>
+    </div>
+
+    <div class="dashboard">
+        <div class="charts-container">
+            <div class="chart-box">
+                <h3 class="chart-title">Revenue vs Expenses Scatter Plot</h3>
+                <canvas id="scatterChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">Monthly Profit Distribution</h3>
+                <canvas id="histogramChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">Market Share by Region</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3 class="chart-title">Investment Returns Bubble Chart</h3>
+                <canvas id="bubbleChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="z.js"></script>
 </body>
 </html>
