@@ -21,9 +21,44 @@ document.addEventListener('click', (e) => {
     }
 });
 
-function initializeCharts() {
+function generateHistogramData(sampleSize = 1000) {
+    // Generate random data points
+    const rawData = Array.from({ length: sampleSize }, () => 
+        Math.floor(Math.random() * 60000) // Generate values between 0 and 60000
+    );
 
-    // Common chart options for consistent sizing
+    // Create bins for the histogram
+    const bins = {
+        '0-10K': 0,
+        '10K-20K': 0,
+        '20K-30K': 0,
+        '30K-40K': 0,
+        '40K-50K': 0,
+        '50K+': 0
+    };
+
+    // Count frequencies
+    rawData.forEach(value => {
+        if (value < 10000) bins['0-10K']++;
+        else if (value < 20000) bins['10K-20K']++;
+        else if (value < 30000) bins['20K-30K']++;
+        else if (value < 40000) bins['30K-40K']++;
+        else if (value < 50000) bins['40K-50K']++;
+        else bins['50K+']++;
+    });
+
+    return {
+        labels: Object.keys(bins),
+        data: Object.values(bins),
+        // Calculate percentage for each bin
+        percentages: Object.values(bins).map(value => 
+            ((value / sampleSize) * 100).toFixed(1)
+        )
+    };
+}
+
+function initializeCharts() {
+    // Common chart options
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -40,6 +75,13 @@ function initializeCharts() {
         plugins: {
             legend: {
                 labels: { color: '#fff' }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `Count: ${context.raw} (${context.dataset.percentages[context.dataIndex]}%)`;
+                    }
+                }
             }
         }
     };
@@ -58,76 +100,65 @@ function initializeCharts() {
                 backgroundColor: 'rgba(75, 192, 192, 0.6)'
             }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Revenue (K)',
-                        color: '#fff'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: { color: '#fff' }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Expenses (K)',
-                        color: '#fff'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: { color: '#fff' }
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff'
-                    }
-                }
-            }
-        }
+        options: chartOptions
     });
 
     // Histogram
+    const histogramData = generateHistogramData();
     const histogramCtx = document.getElementById('histogramChart').getContext('2d');
     new Chart(histogramCtx, {
         type: 'bar',
         data: {
-            labels: ['0-10K', '10-20K', '20-30K', '30-40K', '40-50K', '50K+'],
+            labels: histogramData.labels,
             datasets: [{
-                label: 'Profit Distribution',
-                data: [15, 25, 35, 20, 10, 5],
-                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                label: 'Monthly Profit Distribution',
+                data: histogramData.data,
+                percentages: histogramData.percentages,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            ...chartOptions,
             scales: {
                 x: {
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
                     ticks: { color: '#fff' }
                 },
                 y: {
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: { color: '#fff' }
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { 
+                        color: '#fff',
+                        callback: function(value) {
+                            return value + ' items';
+                        }
+                    }
                 }
             },
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#fff'
+                    labels: { color: '#fff' }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Count: ${context.raw} (${context.dataset.percentages[context.dataIndex]}%)`;
+                        }
                     }
                 }
             }
@@ -152,15 +183,8 @@ function initializeCharts() {
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff'
-                    }
-                }
-            }
+            ...chartOptions,
+            scales: {} // Remove scales for pie chart
         }
     });
 
@@ -179,30 +203,6 @@ function initializeCharts() {
                 backgroundColor: 'rgba(54, 162, 235, 0.6)'
             }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: { color: '#fff' }
-                },
-                y: {
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: { color: '#fff' }
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff'
-                    }
-                }
-            }
-        }
+        options: chartOptions
     });
 }
