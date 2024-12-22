@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Dashboard</title>
+    <title>UApW11-Chart_B</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -17,8 +18,11 @@
         <div class="charts-container">
             <div class="chart-box">
                 <h3 class="chart-title">Revenue vs Expenses Scatter Plot</h3>
-                <canvas id="scatterChart"></canvas>
+                <div class="chart-wrapper">
+                    <canvas id="scatterChart"></canvas>
+                </div>
             </div>
+            
             <div class="chart-box">
                 <h3 class="chart-title">Monthly Profit Distribution</h3>
                 <canvas id="histogramChart"></canvas>
@@ -33,9 +37,7 @@
             </div>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="z.js"></script>
-    
+
 </body>
 </html>
