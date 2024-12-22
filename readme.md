@@ -3,10 +3,13 @@
 ## :scroll: Overview 
 Descriptive BI dashboard for financial analytics with a floating quick access icon 
 
-![screenshot](pics/screengif1.gif){:style="display: block; margin-left: auto; margin-right: auto"}
-![screenshot](pics/screengif2.gif){:style="display: block; margin-left: auto; margin-right: auto"}
+<img src="pics/screengif1.gif" 
+        alt="Mobile first UI" 
+        style="display: block; margin: 0 auto" />
+
+![Image](pics/screengif2.gif#center)
 
 ***
 ***
 
-![screenshot](pics/slowking.gif "...Then teach and guide yourself"){:style="display: block; margin-left: auto; margin-right: auto"}
+![Image](pics/slowking.gif "...Then teach and guide yourself"){:.centered}
